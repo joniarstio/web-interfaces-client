@@ -52,9 +52,9 @@ export default class ProductApp extends Component {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.props.jwt,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title, description, category, location, images, price, deliveryType, sellerName, sellerPhone }),
+      body: JSON.stringify({ title, description, category, location, images, price, deliveryType, sellerName, sellerPhone })
     })
       .then((response) => {
         if (response.ok == false) {

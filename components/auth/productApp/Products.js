@@ -30,14 +30,14 @@ const Products = (props) => {
       <Text>Add new product</Text>
       <View
         style={{
-          flexDirection: "column",
-          height: "60%",
-          width: "60%",
+          flexDirection: "row",
+          height: "20%",
+          width: "90%",
           justifyContent: "center",
           marginBottom: 40,
         }}
       >
-        <Text>Title:</Text>
+
         <TextInput
           style={{
             flex: 3,
@@ -48,7 +48,7 @@ const Products = (props) => {
           onChangeText={(value) => setProductTitle(value)}
           value={productTitle}
         ></TextInput>
-        <Text>Description:</Text>
+
         <TextInput
           style={{
             flex: 2,
@@ -59,7 +59,7 @@ const Products = (props) => {
           onChangeText={(value) => setProductDescription(value)}
           value={productDescription}
         ></TextInput>
-        <Text>Category:</Text>
+
         <TextInput
           style={{
             flex: 2,
@@ -70,7 +70,7 @@ const Products = (props) => {
           onChangeText={(value) => setProductCategory(value)}
           value={productCategory}
         ></TextInput>
-        <Text>Location:</Text>
+
         <TextInput
           style={{
             flex: 2,
@@ -81,7 +81,7 @@ const Products = (props) => {
           onChangeText={(value) => setProductLocation(value)}
           value={productLocation}
         ></TextInput>
-        <Text>Images:</Text>
+
         <TextInput
           style={{
             flex: 2,
@@ -92,7 +92,7 @@ const Products = (props) => {
           onChangeText={(value) => setProductImages(value)}
           value={productImages}
         ></TextInput>
-        <Text>Price:</Text>
+
         <TextInput
           style={{
             flex: 2,
@@ -136,7 +136,7 @@ const Products = (props) => {
           onChangeText={(value) => setProductSellerPhone(value)}
           value={productSellerPhone}
         ></TextInput>
-
+        
         <TouchableHighlight
           onPress={() =>
             props.onProductAdd(
@@ -158,7 +158,11 @@ const Products = (props) => {
         </TouchableHighlight>
       </View>
       <Text style={{ fontSize: 25 }}>Products</Text>
-
+      {
+        props.products.map(p => <Text key={p.id}>
+          {p.title}
+        </Text>)
+      }
     </View>
   );
 };
