@@ -9,7 +9,7 @@ const View1 = (props) => {
       
       <Button
         title="Go to Products List View"
-        onPress={() => props.navigation.navigate('ProductsView')}
+        onPress={() => props.navigation.navigate('MyProducts')}
       />
       <Button
         title="Logout"

@@ -8,9 +8,9 @@ import SignUpScreen from './SignUpScreen';
 import SignUpCompleted from './SignUpCompleted';
 import * as SecureStore from 'expo-secure-store';
 import LoadingScreen from './LoadingScreen';
+import ProductsView from './ProductsView';
 import ProductApp from './ProductApp';
-//import ProductsView from '../navigation/ProductsView';
-import Products from '../auth/productApp/Products';
+
 
 const Stack = createStackNavigator();
 const secureStoreTokenName = "demoApJWT2";
@@ -21,21 +21,48 @@ export default class AuthDemo extends Component {
     super(props);
     this.state = {
       isCheckingTokenStorage: true,
-      activeJWT: null
+      activeJWT: null,
+      products: [],
     };
   }
 
   componentDidMount() {
-    // Check for stored JWT when the application loads
-    SecureStore.getItemAsync(secureStoreTokenName)
-      .then(response => {
-        console.log("SecureStore.getItemAsync success")        
-        this.setState({ activeJWT: response, isCheckingTokenStorage: false })
+      console.log("Getting all the products");
+      fetch(this.props.apiURI + "/products/all", {
+        method: "GET",
       })
-      .catch(error => {
-        console.log("SecureStore.getItemAsync error")
-        console.log(error);
-      });
+        .then((response) => {
+          if (response.ok == false) {
+            throw new Error(
+              "HTTP Code " +
+                response.status +
+                " - " +
+                JSON.stringify(response.json())
+            );
+          }
+          return response.json();
+        })
+        .then((json) => {
+          console.log("All Products GET successful");
+          console.log("Received following JSON:");
+          console.log(json);
+  
+          this.setState({ products: json });
+        })
+        .catch((error) => {
+          console.log("Error message:");
+          console.log(error.message);
+        });
+            // Check for stored JWT when the application loads
+    SecureStore.getItemAsync(secureStoreTokenName)
+    .then(response => {
+      console.log("SecureStore.getItemAsync success")        
+      this.setState({ activeJWT: response, isCheckingTokenStorage: false })
+    })
+    .catch(error => {
+      console.log("SecureStore.getItemAsync error")
+      console.log(error);
+    });
   }
 
   
@@ -83,7 +110,7 @@ export default class AuthDemo extends Component {
             headerShown: false,
           }}
         >
-          { props => <Products {...props}></Products>}
+          { props => <ProductsView {...props} apiURI={ this.props.apiURI } products={this.state.products}></ProductsView>}
         </Stack.Screen>
       </>
     );

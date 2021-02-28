@@ -86,7 +86,7 @@ export default class ProductApp extends Component {
         <Stack.Screen name="View1">
           {(props) => <View1 {...props} onLogout={this.props.onLogout} />}
         </Stack.Screen>
-        <Stack.Screen name="ProductsView" options={{ title: "Products List" }}>
+        <Stack.Screen name="MyProducts" options={{ title: "Products List" }}>
           {(props) => (
             <Products
               {...props}
